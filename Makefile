@@ -2,6 +2,14 @@
 run:
 	yarn dev
 
+# deps
+deps:
+	rm -rf node_modules yarn.lock
+	yarn install
+# format
+fmt:
+	yarn biome format --write ./
+
 # package manage
 chmod:
 	chmod +x scripts/install.sh
