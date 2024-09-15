@@ -1,0 +1,11 @@
+### GET HonoX
+GET http://localhost:5173/api
+
+### Post HonoX
+POST http://localhost:5173/api/posts HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "post": "HonoX🔥"
+}
