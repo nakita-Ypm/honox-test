@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { validator } from 'hono/validator'
 import { reqSchema } from '../../common/zod'
+import { ReqType } from '../../common/types'
 
 const app = new Hono()
   .get('/', async (c) => {
@@ -8,8 +9,8 @@ const app = new Hono()
   })
   .post(
     '/posts',
-    validator('json', (v, c) => {
-      const parsed = reqSchema.safeParse(v)
+    validator('json', (value: ReqType, c) => {
+      const parsed = reqSchema.safeParse(value)
       if (!parsed.success) {
         return c.json({ message: 'Bad Request', error: '１文字以上１４０文字以内で入力して下さい。' }, 400)
       }
