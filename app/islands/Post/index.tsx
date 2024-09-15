@@ -48,7 +48,7 @@ const Post = () => {
   }
 
   return (
-    <div>
+    <>
       <h1>Post</h1>
       <form onSubmit={handleSubmit}>
         <input type='text' value={value} onChange={handleChange} />
@@ -58,7 +58,7 @@ const Post = () => {
       {posts.map((post, index) => (
         <p key={index}>{post}</p>
       ))}
-    </div>
+    </>
   )
 }
 
