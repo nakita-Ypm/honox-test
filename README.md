@@ -13,8 +13,3 @@ make run
 ```
 http://localhost:5173/
 ```
-
-## Demo
-<video controls>
-  <source src="./mov/demo.mov" type="video/quicktime">
-</video>
