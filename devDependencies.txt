@@ -1,0 +1,6 @@
+@cloudflare/workers-types
+@hono/vite-build
+@hono/vite-dev-server
+vite
+wrangler
+@biomejs/biome
