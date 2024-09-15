@@ -2,6 +2,7 @@ import { useState } from 'hono/jsx'
 import { hc } from 'hono/client'
 import { AddType } from '../../routes/api'
 import { reqSchema } from '../../common/zod'
+import { ReqType } from '../../common/types'
 
 const client = hc<AddType>('/api/')
 
@@ -10,12 +11,23 @@ const Post = () => {
   const [error, setError] = useState<string | null>(null)
   const [posts, setPosts] = useState<string[]>([])
 
+  const handleChange = (e: Event) => setValue(e.target instanceof HTMLInputElement ? e.target.value : value)
+
+  const valueValidate = (value: string): string | null => {
+    const parseValue: ReqType = { post: value }
+    const result = reqSchema.safeParse(parseValue)
+    if (!result.success) {
+      return '１文字以上１４０文字以内で入力して下さい。'
+    }
+    return null
+  }
+
   const handleSubmit = async (e: Event) => {
     e.preventDefault()
 
-    const parsed = reqSchema.safeParse(value)
-    if (!parsed.success) {
-      setError('１文字以上１４０文字以内で入力して下さい。')
+    const valueValidateError = valueValidate(value)
+    if (valueValidateError) {
+      setError(valueValidateError)
       return
     }
 
@@ -32,12 +44,6 @@ const Post = () => {
       setValue('')
     } catch {
       setError('投稿に失敗しました')
-    }
-  }
-
-  const handleChange = (e: Event) => {
-    if (e.target instanceof HTMLInputElement) {
-      setValue(e.target.value)
     }
   }
 
