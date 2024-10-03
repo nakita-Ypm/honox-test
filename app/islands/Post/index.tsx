@@ -1,8 +1,8 @@
 import { useState } from 'hono/jsx'
 import { hc } from 'hono/client'
 import { AddType } from '../../routes/api'
-import { reqSchema } from '../../common/zod'
-import { ReqType } from '../../common/types'
+import { reqSchema } from '../../zod'
+import { ReqType } from '../../types'
 
 const client = hc<AddType>('/api/')
 
@@ -33,14 +33,12 @@ const Post = () => {
 
     try {
       setError(null)
-      const res = await client.posts
-        .$post({
-          json: { post: value },
-        })
-        .then((res) => res.json())
+      const res = await client.posts.$post({
+        json: { post: value },
+      })
 
-      const resMessage = res.post
-      setPosts([...posts, resMessage])
+      const data = await res.json()
+      setPosts([...posts, data.post])
       setValue('')
     } catch {
       setError('投稿に失敗しました')
